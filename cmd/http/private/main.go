@@ -7,10 +7,11 @@ import (
 )
 
 func main() {
-	apiKey := "3576549f-e1ce-4317-b83e-48f192cf9e23"
-	secretKey := "6ee95f06-0365-4e09-a9db-b38d2d7111b0"
-	url := "https://futures.zb.land"
-	client := private.NewPrivateClient(url, apiKey, secretKey)
+	apiKey := "99730176-b026-4250-ab01-7eab6080efae"
+	secretKey := "22383e66-3be5-425c-b1ad-3d287d79322c"
+	//url := "https://futures.zb.com"
+	url := "https://fapi.zb.com"
+	client := private.NewPrivateClient(url, "usdt", apiKey, secretKey)
 
 	symbol := "ETH_USDT"
 

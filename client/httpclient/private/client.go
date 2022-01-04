@@ -15,20 +15,28 @@ import (
 type Client struct {
 	*httpclient.HttpClient
 
-	ApiKey    string
-	SecretKey string
+	ApiKey     string
+	SecretKey  string
+	FutureType string
 }
 
-func NewPrivateClient(endpoint, apiKey, secretKey string) *Client {
+func NewPrivateClient(endpoint, futureType, apiKey, secretKey string) *Client {
 	var client Client
 	client.HttpClient = httpclient.NewHttpClient(endpoint)
 	client.ApiKey = apiKey
 	client.SecretKey = secretKey
+	client.FutureType = futureType
+
+	if client.FutureType != "" {
+		client.FutureType = "/" + client.FutureType
+	}
 
 	return &client
 }
 
 func (c *Client) Get(path string, params map[string]interface{}) (*json.RawMessage, error) {
+	path = c.FutureType + path
+
 	url := c.Endpoint + path
 	if params != nil {
 		var urlSuffix []string
@@ -62,6 +70,8 @@ func (c *Client) Get(path string, params map[string]interface{}) (*json.RawMessa
 }
 
 func (c *Client) Post(path string, params map[string]interface{}) (*json.RawMessage, error) {
+	path = c.FutureType + path
+
 	url := c.Endpoint + path
 	Log.Info().Msg(url)
 
